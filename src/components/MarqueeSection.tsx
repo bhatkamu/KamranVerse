@@ -34,6 +34,8 @@ function MarqueeRow({ images, direction, offset }: { images: string[]; direction
         style={{
           transform: translateX,
           willChange: 'transform',
+          backfaceVisibility: 'hidden',
+          WebkitFontSmoothing: 'antialiased',
         }}
       >
         {tripleImages.map((src, i) => (
@@ -43,6 +45,7 @@ function MarqueeRow({ images, direction, offset }: { images: string[]; direction
             alt=""
             className="w-[420px] h-[270px] rounded-2xl object-cover flex-shrink-0"
             loading="lazy"
+            draggable={false}
           />
         ))}
       </div>
@@ -53,21 +56,31 @@ function MarqueeRow({ images, direction, offset }: { images: string[]; direction
 export default function MarqueeSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const [scrollOffset, setScrollOffset] = useState(0)
+  const rafRef = useRef<number>(0)
+  const sectionTopRef = useRef(0)
 
   useEffect(() => {
     const section = sectionRef.current
     if (!section) return
 
-    const sectionTop = section.offsetTop
+    sectionTopRef.current = section.offsetTop
 
     const handleScroll = () => {
-      const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.3
-      setScrollOffset(offset)
+      // Throttle with requestAnimationFrame to avoid re-renders on every scroll event
+      if (rafRef.current) return
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = 0
+        const offset = (window.scrollY - sectionTopRef.current + window.innerHeight) * 0.3
+        setScrollOffset(offset)
+      })
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
   }, [])
 
   return (

@@ -68,6 +68,8 @@ const TextPressure = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const spansRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const charPositionsRef = useRef<{ x: number; y: number }[]>([]);
+  const maxDistRef = useRef(0);
 
   const mouseRef = useRef({ x: 0, y: 0 });
   const cursorRef = useRef({ x: 0, y: 0 });
@@ -108,6 +110,22 @@ const TextPressure = ({
     };
   }, []);
 
+  // Cache character positions - only recalculate on resize, not every frame
+  const cacheCharPositions = useCallback(() => {
+    if (!titleRef.current) return;
+    const titleRect = titleRef.current.getBoundingClientRect();
+    maxDistRef.current = titleRect.width / 2;
+
+    charPositionsRef.current = spansRef.current.map(span => {
+      if (!span) return { x: 0, y: 0 };
+      const rect = span.getBoundingClientRect();
+      return {
+        x: rect.x + rect.width / 2,
+        y: rect.y + rect.height / 2
+      };
+    });
+  }, []);
+
   const setSize = useCallback(() => {
     if (!containerRef.current || !titleRef.current) return;
 
@@ -129,8 +147,11 @@ const TextPressure = ({
         setScaleY(yRatio);
         setLineHeight(yRatio);
       }
+
+      // Cache positions after size is set
+      requestAnimationFrame(cacheCharPositions);
     });
-  }, [chars.length, minFontSize, scale]);
+  }, [chars.length, minFontSize, scale, cacheCharPositions]);
 
   useEffect(() => {
     const debouncedSetSize = debounce(setSize, 100);
@@ -145,19 +166,15 @@ const TextPressure = ({
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
 
-      if (titleRef.current) {
-        const titleRect = titleRef.current.getBoundingClientRect();
-        const maxDist = titleRect.width / 2;
+      // Use cached positions instead of getBoundingClientRect on every frame
+      const positions = charPositionsRef.current;
+      const maxDist = maxDistRef.current;
 
-        spansRef.current.forEach(span => {
-          if (!span) return;
+      if (positions.length > 0) {
+        spansRef.current.forEach((span, i) => {
+          if (!span || !positions[i]) return;
 
-          const rect = span.getBoundingClientRect();
-          const charCenter = {
-            x: rect.x + rect.width / 2,
-            y: rect.y + rect.height / 2
-          };
-
+          const charCenter = positions[i];
           const d = dist(mouseRef.current, charCenter);
 
           const wdth = width ? Math.floor(getAttr(d, maxDist, 5, 200)) : 100;
@@ -243,7 +260,8 @@ const TextPressure = ({
           userSelect: 'none',
           whiteSpace: 'nowrap',
           fontWeight: 100,
-          width: '100%'
+          width: '100%',
+          willChange: 'font-variation-settings',
         }}
       >
         {chars.map((char, i) => (
