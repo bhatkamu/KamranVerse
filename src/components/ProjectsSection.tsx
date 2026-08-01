@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
 import FadeIn from './FadeIn'
-import LiveProjectButton from './LiveProjectButton'
 
 const base = import.meta.env.BASE_URL
 
@@ -63,7 +62,6 @@ function ProjectCard({ project, index, scrollYProgress }: ProjectCardProps) {
               </h3>
             </div>
           </div>
-          <LiveProjectButton />
         </div>
 
         {/* Bottom Row - Image Grid */}
