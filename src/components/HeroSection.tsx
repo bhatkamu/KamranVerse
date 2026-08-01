@@ -1,7 +1,6 @@
 import FadeIn from './FadeIn'
 import StaggeredMenu from './StaggeredMenu'
 import ShinyText from './ShinyText'
-import TextPressure from './TextPressure'
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '#home' },
@@ -41,20 +40,9 @@ export default function HeroSection() {
       {/* Hero Heading + Scroll Hint */}
       <FadeIn delay={0.15} y={40}>
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <div className="w-full px-4" style={{ height: 'clamp(120px, 22vw, 320px)' }}>
-            <TextPressure
-              text="Hi, i'm kamu"
-              flex
-              alpha={false}
-              stroke={false}
-              width
-              weight
-              italic
-              textColor="#ffffff"
-              strokeColor="#dfdde9"
-              minFontSize={36}
-            />
-          </div>
+          <h1 className="text-white font-black uppercase text-center text-[clamp(3rem,10vw,8rem)] leading-tight tracking-tight px-4">
+            Hi, i'm kamu
+          </h1>
           <FadeIn delay={0.35} y={20}>
             <ShinyText
               text="SCROLL TO EXPLORE"
