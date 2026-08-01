@@ -19,8 +19,8 @@ const projects = [
   },
   {
     number: '03',
-    category: 'BEPP',
-    title: 'BEPP DATA ANALYTICS',
+    category: 'BEEP',
+    title: 'BEEP DATA ANALYTICS',
     col2Image: `${base}images/E032F2EC-7015-45AB-BA43-853B915A1255.PNG`
   }
 ]
