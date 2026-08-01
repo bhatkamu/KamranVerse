@@ -38,9 +38,9 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* Hero Heading */}
+      {/* Hero Heading + Scroll Hint */}
       <FadeIn delay={0.15} y={40}>
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <div className="w-full px-4" style={{ height: 'clamp(120px, 22vw, 320px)' }}>
             <TextPressure
               text="Hi, i'm kamu"
@@ -55,11 +55,6 @@ export default function HeroSection() {
               minFontSize={36}
             />
           </div>
-        </div>
-      </FadeIn>
-
-      {/* Bottom Bar */}
-      <div className="flex justify-between items-end pb-3 sm:pb-4 md:pb-5 px-6 md:px-10 mt-auto">
           <FadeIn delay={0.35} y={20}>
             <ShinyText
               text="SCROLL TO EXPLORE"
@@ -72,10 +67,11 @@ export default function HeroSection() {
               yoyo={false}
               pauseOnHover={false}
               disabled={false}
-              className="font-light uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px] text-[clamp(0.75rem,1.4vw,1.5rem)]"
+              className="font-light uppercase tracking-wide leading-snug text-[clamp(0.75rem,1.4vw,1.5rem)]"
             />
           </FadeIn>
-      </div>
+        </div>
+      </FadeIn>
     </section>
   )
 }
