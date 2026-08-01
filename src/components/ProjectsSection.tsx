@@ -7,20 +7,20 @@ const base = import.meta.env.BASE_URL
 const projects = [
   {
     number: '01',
-    category: 'Client',
-    title: 'Nextlevel Studio',
+    category: 'BY ANTHROPIC',
+    title: 'MASTER IN CLAUDE AI PROGRAM',
     col2Image: `${base}images/A487080F-E6B8-4360-8A7E-1030EAC79070.PNG`
   },
   {
     number: '02',
-    category: 'Personal',
-    title: 'Aura Brand Identity',
+    category: 'BY GOOGLE',
+    title: 'GOOGLE AI PROGRAM OF AI AND DATA SCIENCE',
     col2Image: `${base}images/IMG_0119.PNG`
   },
   {
     number: '03',
-    category: 'Client',
-    title: 'Solaris Digital',
+    category: 'BEEP',
+    title: 'BEEP DATA ANALYTICS',
     col2Image: `${base}images/E032F2EC-7015-45AB-BA43-853B915A1255.PNG`
   }
 ]
