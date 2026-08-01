@@ -1,0 +1,15 @@
+{
+  "liveServer.settings.port": 5173,
+  "liveServer.settings.proxy": {
+    "enable": true,
+    "baseUri": "/",
+    "proxyUri": "http://localhost:5173/"
+  },
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.host": "localhost",
+  "liveServer.settings.root": "/",
+  "liveServer.settings.AdvanceCustomBrowserCmdLine": "",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}

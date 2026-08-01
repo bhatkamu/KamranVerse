@@ -1,0 +1,6 @@
+<svg width="110" height="24" viewBox="0 0 110 24" xmlns="http://www.w3.org/2000/svg">
+  <rect width="110" height="24" rx="4" fill="white" fill-opacity="0.05"/>
+  <path d="M8 18 L8 6 L18 12 L8 18 Z" fill="white" fill-opacity="0.9"/>
+  <path d="M24 18 L24 6 L34 12 L24 18 Z" fill="white" fill-opacity="0.9"/>
+  <text x="42" y="16" font-family="Kanit, sans-serif" font-size="14" font-weight="600" fill="white" fill-opacity="0.9">KAMU</text>
+</svg>
